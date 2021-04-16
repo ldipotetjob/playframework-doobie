@@ -1,0 +1,14 @@
+/project/target/
+/target/
+/.idea
+*.class
+/.idea/
+.idea
+.DS_Store
+*/.DS_Store
+/modules/**/target/
+logs
+/logs/*.log
+target
+/.idea_modules
+
