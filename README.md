@@ -1,3 +1,5 @@
+<img width="928" alt="captura de pantalla 2017-10-07 a las 15 09 49" src="https://user-images.githubusercontent.com/8100363/31313078-665da9a6-abcf-11e7-9266-932880ea6ed2.png">
+
 # Play Hello World Web Tutorial for Scala to connect to Postgres via Doobie (under development)
 
 To run properly this project, you will need the correct version of Java and sbt. The template requires:
