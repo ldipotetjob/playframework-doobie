@@ -1,6 +1,0 @@
-[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/Users/ldipotet/scala/playframework-doobie/conf/logback.xml,/Users/ldipotet/scala/playframework-doobie/target/scala-2.13/classes/logback.xml)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/Users/ldipotet/scala/playframework-doobie/conf/secure.conf,/Users/ldipotet/scala/playframework-doobie/target/scala-2.13/classes/secure.conf)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/Users/ldipotet/scala/playframework-doobie/conf/messages,/Users/ldipotet/scala/playframework-doobie/target/scala-2.13/classes/messages)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/Users/ldipotet/scala/playframework-doobie/conf/application.conf,/Users/ldipotet/scala/playframework-doobie/target/scala-2.13/classes/application.conf)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/Users/ldipotet/scala/playframework-doobie/conf/routes,/Users/ldipotet/scala/playframework-doobie/target/scala-2.13/classes/routes)[0m

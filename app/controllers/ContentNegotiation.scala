@@ -5,7 +5,6 @@ import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
 import play.mvc.Http
 
-import scala.concurrent.Future
 import scala.reflect.ClassTag
 
 /** TODO: Internationalization of messages. */

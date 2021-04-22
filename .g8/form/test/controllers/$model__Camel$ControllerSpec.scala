@@ -1,19 +1,7 @@
 package controllers
 
-import javax.inject._
-import play.api._
-import play.api.mvc._
 import play.api.i18n._
-
-import play.api.data._
-import play.api.data.Forms._
-
-import org.scalatestplus.play._
-import play.api.test._
-import play.api.test.Helpers._
-
-import play.filters.csrf.CSRF.Token
-import play.filters.csrf.{CSRFConfigProvider, CSRFFilter}
+import play.api.mvc._
 
 /**
  * $model;format="Camel"$ form controller specs

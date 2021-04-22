@@ -1,11 +1,5 @@
 package controllers
 
-import javax.inject._
-import play.api.mvc._
-
-import play.api.data._
-import play.api.data.Forms._
-
 case class $model;format="Camel"$Data(name: String, age: Int)
 
 // NOTE: Add the following to conf/routes to enable compilation of this class:

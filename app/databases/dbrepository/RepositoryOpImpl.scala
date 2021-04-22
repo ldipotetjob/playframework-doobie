@@ -1,10 +1,15 @@
 package databases.dbrepository
-import akka.actor.ActorSystem
-import databases.model.{FootballMatch, Insertable}
-import javax.inject.{Inject, Singleton}
-import play.api.libs.concurrent.CustomExecutionContext
 
+import akka.actor.ActorSystem
+import cats.effect.{ExitCode, IO}
+import databases.dbconnection.HConnection
+import databases.model.FootballMatch
+import doobie.implicits._
+import play.libs.concurrent.CustomExecutionContext
+
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.Future
+
 
 class GetExecutionContext @Inject()(actorSystem: ActorSystem)
   extends CustomExecutionContext(actorSystem, "repository.dispatcher")
@@ -16,14 +21,47 @@ class GetExecutionContext @Inject()(actorSystem: ActorSystem)
  * such as rendering.
  */
 @Singleton
-class RepositoryOpImpl @Inject()(implicit ec: GetExecutionContext) extends RepositoryOp[FootballMatch]{
+class RepositoryOpImpl @Inject()(implicit ec: GetExecutionContext, db: HConnection) extends RepositoryOp[FootballMatch] {
   //type A = FootballMatch
-  def findByPattern(pattern: String): Future[Option[FootballMatch]] = ???
-  def all(): Future[Seq[FootballMatch]] =
-    Future(
-      Seq(
-        FootballMatch(league = "PRML", season = "2019/2020", audience = 160),
-        FootballMatch(league = "CHAMPIONS", season = "2019/2020", audience = 12)
-      )
-    )
+  def findByPattern (pattern: String): Future[Option[FootballMatch]] = ???
+
+  def all(): Future[Either[Throwable, Seq[FootballMatch]]] =
+  {
+    Future {
+      try {
+        Right {
+        //  "ywyw".toInt
+          Seq(
+            FootballMatch(league = "PRML", season = "2019/2020", audience = 160),
+            FootballMatch(league = "CHAMPIONS", season = "2019/2020", audience = 12)
+          )
+        }
+      } catch {
+        case ex: NumberFormatException => Left(ex)
+      }
+    }
+  }
+
+  override def allWithDoobie () = ???
+
+  def run (args: List[String]): IO[ExitCode] =
+    db.transactor.use { xa =>
+      // Construct and run your server here!
+      for {
+        n <- sql"select 42".query[Int].unique.transact(xa)
+        _ <- IO(println(n))
+      } yield ExitCode.Success
+    }
+
+/*
+  def select (): Future[List[FootballMatch]] = {
+    db.transactor.use { xa =>
+      // Construct and run your server here!
+      for {
+        n <- sql"select id,name,audience from MyTable".query[FootballMatch].to[List].transact(xa)
+      } yield n
+    }.attempt.unsafeToFuture()
+
+
+  }*/
 }
