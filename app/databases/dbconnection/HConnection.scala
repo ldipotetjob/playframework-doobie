@@ -20,10 +20,10 @@ class HConnection @Inject() (dbconnection: TConnConf)/*extends IOApp*/ {
       ce <- ExecutionContexts.fixedThreadPool[IO](32) // our connect EC
       be <- Blocker[IO]    // our blocking EC
       xa <- HikariTransactor.newHikariTransactor[IO](
-        "org.h2.Driver",                        // driver classname
-        "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1",   // connect URL
-        "sa",                                   // username
-        "",                                     // password
+        "org.postgresql.Driver",                        // driver classname
+        "jdbc:postgresql://localhost:5432/football",   // connect URL
+        "postgres",                                   // username
+        "postgres",                                     // password
         ce,                                     // await connection here
         be                                      // execute JDBC operations here
       )

@@ -1,6 +1,5 @@
 **/target
 **/logs
-/.idea
 *.class
 **/.idea
 .DS_Store

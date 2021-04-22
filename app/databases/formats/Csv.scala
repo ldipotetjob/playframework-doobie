@@ -24,7 +24,7 @@ class Csv(buffer: immutable.Seq[Csv],text:String,escape:Boolean) extends Buffere
   def this(text: String) = this(Nil, Formats.safe(text),false)
   def this(buffer: immutable.Seq[Csv]) = this(buffer, "",false)
 
-  override protected def buildString(builder: StringBuilder) {
+  override protected def buildString(builder: StringBuilder): Unit = {
     if (elements.nonEmpty) {
       elements.foreach { e =>
         e.buildString(builder)

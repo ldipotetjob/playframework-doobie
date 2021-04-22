@@ -25,7 +25,7 @@ class RepositoryOpImpl @Inject()(implicit ec: GetExecutionContext, db: HConnecti
   //type A = FootballMatch
   def findByPattern (pattern: String): Future[Option[FootballMatch]] = ???
 
-  def all(): Future[Either[Throwable, Seq[FootballMatch]]] =
+  def all1(): Future[Either[Throwable, Seq[FootballMatch]]] =
   {
     Future {
       try {
@@ -53,15 +53,12 @@ class RepositoryOpImpl @Inject()(implicit ec: GetExecutionContext, db: HConnecti
       } yield ExitCode.Success
     }
 
-/*
-  def select (): Future[List[FootballMatch]] = {
+  def all() : Future[Either[Throwable, Seq[FootballMatch]]] = {
     db.transactor.use { xa =>
       // Construct and run your server here!
       for {
-        n <- sql"select id,name,audience from MyTable".query[FootballMatch].to[List].transact(xa)
+        n <- sql"select leagueid,season,audience from footballgame".query[FootballMatch].to[Seq].transact(xa)
       } yield n
     }.attempt.unsafeToFuture()
-
-
-  }*/
+  }
 }

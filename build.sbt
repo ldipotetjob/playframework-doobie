@@ -10,6 +10,7 @@ lazy val root = (project in file("."))
       "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test,
       "org.tpolecat" %% "doobie-core"      % "0.12.1",
       "org.tpolecat" %% "doobie-hikari"    % "0.12.1",
+      "org.tpolecat" %% "doobie-postgres"  % "0.12.1",
       "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
     )
   )

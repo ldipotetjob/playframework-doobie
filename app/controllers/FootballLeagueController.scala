@@ -14,7 +14,7 @@ class FootballLeagueController@Inject()(cc: GetControllerComponents, services: T
   extends GetBaseController(cc)  with ContentNegotiation{
 
   def processEitherCollection[A](eitherCollection: Either[Throwable, Seq[FootballMatch]])(implicit request: Request[AnyContent]): Result = eitherCollection match {
-    case Left(execption) => BadRequest(Json.obj("status" ->BadRequest.header.status, "message" -> s"Errror ${execption.getMessage} with malformed syntax"))
+    case Left(execption) => BadRequest(Json.obj("status" ->BadRequest.header.status, "message" -> s"Error ${execption.getMessage} with malformed syntax"))
     case Right(seq) => proccessContentNegotiation[FootballMatch](seq)
   }
   def footballMatches = GetAction.async { implicit request =>
