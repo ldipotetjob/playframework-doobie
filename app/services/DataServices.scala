@@ -7,8 +7,7 @@ import javax.inject.{Inject, Singleton}
 import scala.concurrent.Future
 
 @Singleton
-class DataServices @Inject()(repository: RepositoryOpImpl) extends TFootballDataServices {
+class DataServices @Inject()(repository:RepositoryOpImpl) extends TFootballDataServices {
   def leagueGameServices: Future[Either[Throwable,Seq[FootballMatch]]]= repository.all()
   def leagueGameServicesWithDoobie: Future[Seq[FootballMatch]] = ???
-
 }

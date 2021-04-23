@@ -1,30 +1,26 @@
 package config
 
-import com.typesafe.config.ConfigFactory
+import com.typesafe.config.{Config, ConfigFactory}
 import config.Utilities.getConfig
 import databases.ConfigurationError
 import databases.dbconnection.DBConfig
 
-trait ConfigurationBroker {
+import scala.util.{Failure, Success, Try}
 
-  def getDBConf: DBConfig = {
-    val postgresConf = getConfig{ConfigFactory.load()} { config =>
-        DBConfig(
-          config.getString("postgres.url"),
-          config.getString("postgres.driver"),
-          config.getString("postgres.usr"),
-          config.getString("postgres.password")
-        )
-    }
-    postgresConf match {
-      case Right(postgresConf) => postgresConf
-      case Left(fail) => fail match {
-        case error: ConfigurationError =>
-          throw new ConfigurationError(error.errorType,error.message,error.e)
-        /** For compiler reason */
-        case _: Exception =>
-          throw new ConfigurationError("conf_error","Uknown Error")
+trait ConfigurationBroker {
+    def getDBConf: Either[ConfigurationError, DBConfig] = {
+        Try {
+            val cf: Config = ConfigFactory.load()
+            val url: String = cf.getString("postgres.url")
+            val driv: String = cf.getString("postgres.driver")
+            val pass: String = cf.getString("postgres.password")
+            val usr: String = cf.getString("postgres.username")
+            DBConfig(url, driv, usr, pass)
+        } match {
+          case Success(dbbconf) => Right(dbbconf)
+          case Failure(exception) => Left( ConfigurationError("ErrorConf",
+              s"Error reading configuration info. Details: ${exception.getMessage}",
+              exception))
+        }
       }
-    }
-  }
-}
+   }

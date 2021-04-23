@@ -4,7 +4,7 @@ import play.api.http.{HttpErrorHandler, Status}
 import play.api.libs.json.Json
 import play.api.mvc.Results._
 import play.api.mvc._
-
+import databases.ConfigurationError
 import javax.inject.Singleton
 import scala.concurrent._
 /** ref: https://github.com/playframework/playframework/issues/7019 */
@@ -45,9 +45,14 @@ class ErrorHandler extends  HttpErrorHandler with Status {
   def onServerError(request: RequestHeader, exception: Throwable) = {
     Future.successful(
       exception match {
+        case exconf:ConfigurationError =>
+            InternalServerError(Json.obj(
+            "status" ->InternalServerError.header.status,
+            "message" ->s"Database configuration error: ${exconf.message}"
+          ))
         case _ => InternalServerError(
           Json.obj("status" ->InternalServerError.header.status,
-          "message" ->s"Unknown error: ${exception.getMessage}")
+            "message" ->s"Unknown error: ${exception.getMessage}")
         )
       }
     )

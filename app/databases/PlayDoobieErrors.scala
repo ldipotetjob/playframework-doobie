@@ -10,4 +10,4 @@ case class ExecuteStatementError(errorType: String="",message:String="",e: Throw
 
 //exception that can  stop the API
 case class ConnException(errorType: String="",message: String="", e: Throwable=null) extends FailureTrait //extends Exception(message: String, e: Throwable)
-case class ConfigurationError(errorType: String="",message: String="", e: Throwable=null) extends FailureTrait
+case class ConfigurationError(errorType: String="",message: String="", e: Throwable) extends FailureTrait

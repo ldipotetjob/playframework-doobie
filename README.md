@@ -1,6 +1,6 @@
 <img width="928" alt="captura de pantalla 2017-10-07 a las 15 09 49" src="https://user-images.githubusercontent.com/8100363/31313078-665da9a6-abcf-11e7-9266-932880ea6ed2.png">
 
-# Play framework Tutorial for Scala to connect to Postgres via Doobie (under development)
+# Play framework Tutorial for Scala to connect to Postgres via Doobie
 
 To run properly this project, you will need the correct version of Java and sbt. The template requires:
 
@@ -23,7 +23,6 @@ To build and run the project:
 
 3. After the message `Server started, ...` displays, enter the following URL in a browser: <http://localhost:9000>
 
-The Play application responds: `Welcome to the Hello World Tutorial!`
-
+**Pending Test module**
 
 curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/games ; echo
