@@ -25,4 +25,5 @@ To build and run the project:
 
 **Pending Test module**
 
-curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/games ; echo
+curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/games ; echo</br>
+curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/games ; echo
