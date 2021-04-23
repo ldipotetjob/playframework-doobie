@@ -1,12 +1,11 @@
 package controllers
 
+import databases.ConfigurationError
 import databases.model.FootballMatch
 import databases.model.ImplicitConversion.matchGameFormat
 import play.api.libs.json.Json
 import play.api.mvc.{AnyContent, Request, Result}
 import services.TFootballDataServices
-import databases.ConfigurationError
-import play.api.mvc.Results.InternalServerError
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}

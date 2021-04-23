@@ -1,7 +1,7 @@
 package databases.dbconnection
 
-import databases.ConfigurationError
+import databases.FailureTrait
 
 trait TConnConf {
-  def dbConfig: Either[ConfigurationError,DBConfig]
+  def dbConfig: Either[FailureTrait,DBConfig]
 }

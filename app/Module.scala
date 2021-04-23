@@ -1,7 +1,5 @@
 import com.google.inject.AbstractModule
 import databases.dbconnection.{ConnConf, TConnConf}
-import databases.dbrepository.{RepositoryOp, RepositoryOpImpl}
-import databases.model.FootballMatch
 import services.{DataServices, TFootballDataServices}
 
 class Module extends AbstractModule {

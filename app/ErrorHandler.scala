@@ -1,10 +1,11 @@
 import com.typesafe.scalalogging.Logger
+import databases.ConfigurationError
 import org.slf4j.{LoggerFactory, Marker, MarkerFactory}
 import play.api.http.{HttpErrorHandler, Status}
 import play.api.libs.json.Json
 import play.api.mvc.Results._
 import play.api.mvc._
-import databases.ConfigurationError
+
 import javax.inject.Singleton
 import scala.concurrent._
 /** ref: https://github.com/playframework/playframework/issues/7019 */

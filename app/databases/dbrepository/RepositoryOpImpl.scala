@@ -1,7 +1,6 @@
 package databases.dbrepository
 
 import akka.actor.ActorSystem
-import cats.effect.{ExitCode, IO}
 import databases.dbconnection.HConnection
 import databases.model.FootballMatch
 import doobie.implicits._
