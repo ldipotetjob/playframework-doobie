@@ -9,7 +9,6 @@ To run properly this project, you will need the correct version of Java and sbt.
 
 If you do not have the required versions, follow these links to obtain them:
 
-* [Java SE](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [sbt](http://www.scala-sbt.org/download.html)
 
 ## Build and run the project
@@ -23,7 +22,28 @@ To build and run the project:
 
 3. After the message `Server started, ...` displays, enter the following URL in a browser: <http://localhost:9000>
 
-**Pending Test module**
+4. Preparing your postgres db
+   
+   - ``` sql
+        CREATE DATABASE football OWNER postgres;
+        CREATE TABLE footballgame (leagueid text PRIMARY KEY, season text NOT NULL, audience int);
+      ```
+   - ``` sql
+        INSERT INTO cities VALUES ('PRML', '2018/2019');
+        INSERT INTO cities VALUES ('CHAMPION', '2018/2019');
+        INSERT INTO cities VALUES ('LALIGA', '2018/2019');
+        INSERT INTO cities VALUES ('BUNDES', '2018/2019');
+        INSERT INTO cities VALUES ('LIGUE1', '2018/2019');
+        INSERT INTO cities VALUES ('SERIEA', '2018/2019');
+     ```
+5. To reach our endpoint After the message `Server started, ...` displays:
 
-curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/games ; echo</br>
-curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/games ; echo
+   - ```
+      curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/games
+     ```
+   - ``` 
+      curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/games ; echo
+     ```
+
+**Pending TODO Test module**
+
