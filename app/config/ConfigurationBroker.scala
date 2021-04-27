@@ -5,6 +5,7 @@ import config.Utilities.getConfig
 import databases.FailureTrait
 import databases.dbconnection.DBConfig
 
+/** trait 2 get config file for connection*/
 trait ConfigurationBroker {
     def getDBConf: Either[FailureTrait, DBConfig] =
       getConfig(ConfigFactory.load()){

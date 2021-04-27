@@ -21,22 +21,21 @@ class HConnection @Inject()(dbconf: TConnConf)/*extends IOApp*/ {
 
   implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
-  def transactor: Either[Throwable,Resource[IO, HikariTransactor[IO]]] =
-    dbconf.dbConfig match {
-      case Right(config) => Right{
-        for {
-          ce <- ExecutionContexts.fixedThreadPool[IO] (25)// our connect EC
-          be <- Blocker[IO] // our blocking EC
-          xa <- HikariTransactor.newHikariTransactor[IO](
-            config.driver, //"org.postgresql.Driver"
-            config.url, //"jdbc:postgresql://localhost:5432/football"
-            config.usr, //"postgres"
-            config.passw, //"postgres"
-            ce, // await connection here
-            be  // execute JDBC operations here
-          )
-        } yield xa
-      }
-      case Left(fail) => Left(fail)
+  def transactor: Either[Throwable,Resource[IO, HikariTransactor[IO]]] = {
+    /** Traversing monad */
+    dbconf.dbConfig.map { config =>
+      for {
+        ce <- ExecutionContexts.fixedThreadPool[IO](25) // our connect EC
+        be <- Blocker[IO] // our blocking EC
+        xa <- HikariTransactor.newHikariTransactor[IO](
+          config.driver, //"org.postgresql.Driver"
+          config.url, //"jdbc:postgresql://localhost:5432/football"
+          config.usr, //"postgres"
+          config.passw, //"postgres"
+          ce, // await connection here
+          be // execute JDBC operations here
+        )
+      } yield xa
     }
+  }
 }
