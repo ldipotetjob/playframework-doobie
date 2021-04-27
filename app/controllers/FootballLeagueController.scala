@@ -3,6 +3,7 @@ package controllers
 import databases.ConfigurationError
 import databases.model.FootballMatch
 import databases.model.ImplicitConversion.matchGameFormat
+import doobie.implicits.toSqlInterpolator
 import play.api.libs.json.Json
 import play.api.mvc.{AnyContent, Request, Result}
 import services.TFootballDataServices
@@ -23,15 +24,14 @@ class FootballLeagueController@Inject()(cc: GetControllerComponents, services: T
     }
     case Right(seq) => proccessContentNegotiation[FootballMatch](seq)
   }
-  def footballMatches = GetAction.async { implicit request =>
+  def footballMatches(pattern: String) = GetAction.async { implicit request =>
 
     /**
      * Si queremos logear los headers:
      * ref.: https://docs.konghq.com/hub/kong-inc/oauth2/#upstream-headers
      * request.headers.headers.map(x=>logger.warn(x._1 +" value " + x._2))
      */
-    val dataResultsSeq: Future[Either[Throwable, Seq[FootballMatch]]] = services.leagueGameServices
+    val dataResultsSeq: Future[Either[Throwable, Seq[FootballMatch]]] = services.leagueGameServices(fr"where leagueid=$pattern")
     dataResultsSeq.map( secgames => processEitherCollection(secgames))
   }
-
 }
