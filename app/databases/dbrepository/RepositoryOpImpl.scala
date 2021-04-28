@@ -21,7 +21,7 @@ class GetExecutionContext @Inject()(actorSystem: ActorSystem)
  * such as rendering.
  */
 @Singleton
-class RepositoryOpImpl @Inject()(dbConnection: HConnection) extends RepositoryOp[FootballMatch] {
+class RepositoryOpImpl @Inject()(dbConnection: HConnection)(implicit ec: GetExecutionContext) extends RepositoryOp[FootballMatch] {
   //type A = FootballMatch
   def findByPattern (pattern: String): Future[Option[FootballMatch]] = ???
   def all(pattern: Fragment) : Future[Either[Throwable, Seq[FootballMatch]]] = {
@@ -36,12 +36,3 @@ class RepositoryOpImpl @Inject()(dbConnection: HConnection) extends RepositoryOp
       }
     }
   }
-
-
-
-
-
-
-
-
-
