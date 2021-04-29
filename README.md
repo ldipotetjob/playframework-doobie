@@ -20,9 +20,9 @@ To build and run the project:
 
 1. Build the project. Enter: `sbt run`. The project builds and starts the embedded HTTP server. Since this downloads libraries and dependencies, the amount of time required depends partly on your connection's speed.
 
-3. After the message `Server started, ...` displays, enter the following URL in a browser: <http://localhost:9000>
+2. After the message `Server started, ...` displays, enter the following URL in a browser: <http://localhost:9000>
 
-4. Preparing your postgres db
+3. Preparing your postgres db
    
    - ``` sql
         CREATE DATABASE football OWNER postgres;
@@ -36,14 +36,23 @@ To build and run the project:
         INSERT INTO cities VALUES ('LIGUE1', '2018/2019');
         INSERT INTO cities VALUES ('SERIEA', '2018/2019');
      ```
-5. To reach our endpoint After the message `Server started, ...` displays:
+4. To reach our endpoint After the message `Server started, ...` displays:
+   
+   accept = Media types which accepted for the response(**text/csv or application/json**)
+   
+   Accept default value: **application/json**  
 
    - ```
-      curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/games
+      curl -H "Accept: {accept}" -H "Content-Type: text/plain" http://localhost:9000/games/{leagueid}
      ```
-   - ``` 
-      curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/games ; echo
-     ```
+   4.1  Examples: 
+   
+      - ```
+         curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/games/PRML
+        ```
+      - ``` 
+         curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/games/PRML ; echo
+        ```
 
 **Pending TODO Test module**
 

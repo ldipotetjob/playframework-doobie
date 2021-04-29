@@ -65,7 +65,7 @@ trait ContentNegotiation {
    */
 
   def processContentNegotiationForJson[C <: Parseable]
-  (content: C)()
+  (content: C)
   (implicit request: Request[AnyContent], tag: ClassTag[C], writeable: Writes[C]): Result = {
     val AcceptTextPlain = Accepting("text/plain")
     render {
