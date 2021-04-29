@@ -54,5 +54,6 @@ To build and run the project:
          curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/games/PRML ; echo
         ```
 
+**Pending Endpoint2 Insert in postgres db => TODO HTTP POST**
 **Pending TODO Test module**
 

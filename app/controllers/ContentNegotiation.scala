@@ -1,5 +1,6 @@
 package controllers
 
+import databases.formats.CsvFormat
 import databases.model.{FootballMatch, Parseable}
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
@@ -82,7 +83,7 @@ trait ContentNegotiation {
 
   /** Select the right csv template that must be returned with the response. */
 
-  def selecTemplate[T] (genericSeq: Seq[T])(implicit tag: ClassTag[T]) = {
+  def selecTemplate[T] (genericSeq: Seq[T])(implicit tag: ClassTag[T]): CsvFormat.Appendable = {
 
     extractRightCollection[T](genericSeq) match {
       /**
@@ -91,10 +92,9 @@ trait ContentNegotiation {
        * Now we have only views.csv.football In real case you can have as many template as you need.
        *
        */
-      case Some(pattern: FootballMatch) => {
+      case Some(_: FootballMatch) =>
         val matchseq: Seq[FootballMatch] = genericSeq.asInstanceOf[Seq[FootballMatch]]
         views.csv.football(matchseq)
-      }
       case _ => views.csv.football(Seq[FootballMatch]())
     }
   }
