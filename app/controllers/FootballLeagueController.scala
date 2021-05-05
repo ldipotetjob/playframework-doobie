@@ -1,28 +1,32 @@
 package controllers
 
 import databases.ConfigurationError
-import databases.model.FootballMatch
+import databases.model.{FootballMatch, Parseable}
 import databases.model.ImplicitConversion.matchGameFormat
 import doobie.implicits.toSqlInterpolator
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{AnyContent, Request, Result}
 import services.TFootballDataServices
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
+import scala.reflect.ClassTag
 
 class FootballLeagueController@Inject()(cc: GetControllerComponents, services: TFootballDataServices)(
   implicit ec: ExecutionContext)
   extends GetBaseController(cc)  with ContentNegotiation{
 
-  def processEitherCollection[A](eitherCollection: Either[Throwable, Seq[FootballMatch]])(implicit request: Request[AnyContent]): Result = eitherCollection match {
+  def processEitherCollection[A <: Parseable](eitherCollection: Either[Throwable, Seq[A]])
+                                             (implicit request: Request[AnyContent],
+                                              tag: ClassTag[A],
+                                              writeable: Writes[A]): Result = eitherCollection match {
     case Left(exception) => {
       exception match {
         case ex: ConfigurationError => InternalServerError(Json.obj("status" ->InternalServerError.header.status, "message" -> s"Error ${ex.message} with malformed syntax"))
         case _ => BadRequest(Json.obj("status" ->BadRequest.header.status, "message" -> s"Error ${exception.getMessage} with malformed syntax"))
       }
     }
-    case Right(seq) => proccessContentNegotiation[FootballMatch](seq)
+    case Right(seq) => proccessContentNegotiation[A](seq)
   }
   def footballMatches(pattern: String) = GetAction.async { implicit request =>
 

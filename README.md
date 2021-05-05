@@ -48,7 +48,7 @@ To build and run the project:
    4.1  Examples: 
    
       - ```
-         curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/games/PRML
+         curl -H "Accept: text/csv" -H "Content-Type: text/plain" http://localhost:9000/games/PRML ; echo
         ```
       - ``` 
          curl -H "Accept: application/json" -H "Content-Type: text/plain" http://localhost:9000/games/PRML ; echo
