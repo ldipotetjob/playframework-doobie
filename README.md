@@ -57,3 +57,5 @@ To build and run the project:
 **Pending Endpoint2 Insert in postgres db => TODO HTTP POST**
 **Pending TODO Test module**
 
+ref https://tpolecat.github.io/doobie-0.2.1/09-Arrays.html
+https://gitter.im/tpolecat/doobie?at=57851af359cfbd4c5e8ad0c4
