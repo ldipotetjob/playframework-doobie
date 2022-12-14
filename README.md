@@ -50,6 +50,10 @@ To build and run the project:
          INSERT INTO genhubrequest values ('ldipotet@yello.com','2022-10-19 10:23:54','ldipotet@yello.com1666171434',50,60,true,false);
          INSERT INTO genhubrequest values ('jfdz@gmaila.com','2022-11-19 10:23:54','jfdz@gmaila.com1668853434',50,60,true,false);
      ```     
+   - ``` sql
+        ## connecting to db by psql terminal when server is started
+        psql -h localhost -U scadip genxxx 
+     ```
 
 4. To reach our endpoint After the message `Server started, ...` displays:
    
