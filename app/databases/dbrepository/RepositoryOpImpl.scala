@@ -26,10 +26,7 @@ class RepositoryOpImpl @Inject()(dbConnection: HConnection) extends RepositoryOp
           for {
             //n <- sql"select leagueid,season,audience from footballgame where leagueid='PRML'".query[FootballMatch].to[Seq].transact(xa)
              n <- (fr"""select leagueid,season,audience from footballgame """ ++ pattern).query[FootballMatch].to[Seq].transact(xa)
-          } yield {
-            println("mierdddddddaaaaaQQQQ")
-            n
-          }
+          } yield n
         }.attempt.unsafeToFuture()
         case Left(fail) => Future.successful(Left(fail))
       }
