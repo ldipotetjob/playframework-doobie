@@ -1,18 +1,14 @@
 package databases.dbrepository
 
-import akka.actor.ActorSystem
 import databases.dbconnection.HConnection
-import databases.model.FootballMatch
+import databases.model.{FootballMatch, InsertedValue}
 import doobie.implicits._
 import doobie.util.fragment.Fragment
-import play.libs.concurrent.CustomExecutionContext
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.Future
+import cats.effect.unsafe.implicits.global
 
-
-class GetExecutionContext @Inject()(actorSystem: ActorSystem)
-  extends CustomExecutionContext(actorSystem, "repository.dispatcher")
 /**
  * A trivial implementation for the Post Repository.
  *
@@ -21,7 +17,7 @@ class GetExecutionContext @Inject()(actorSystem: ActorSystem)
  * such as rendering.
  */
 @Singleton
-class RepositoryOpImpl @Inject()(dbConnection: HConnection)(implicit ec: GetExecutionContext) extends RepositoryOp[FootballMatch] {
+class RepositoryOpImpl @Inject()(dbConnection: HConnection) extends RepositoryOp[FootballMatch] {
   //type A = FootballMatch
   def findByPattern (pattern: String): Future[Option[FootballMatch]] = ???
   def all(pattern: Fragment) : Future[Either[Throwable, Seq[FootballMatch]]] = {
@@ -35,4 +31,17 @@ class RepositoryOpImpl @Inject()(dbConnection: HConnection)(implicit ec: GetExec
         case Left(fail) => Future.successful(Left(fail))
       }
     }
+
+  def insert: Future[Either[Throwable, Seq[InsertedValue]]] = {
+    dbConnection.transactor match {
+      case Right(transactor) => transactor.use { xa =>
+        for {
+          //n <- sql"select leagueid,season,audience from footballgame where leagueid='PRML'".query[FootballMatch].to[Seq].transact(xa)
+          n <- sql"""INSERT INTO footballgame (leagueid,season,audience,dategame,playermin) values ('PREMIER222','2020/2021',200,'2022-10-19 10:23:54', '{{neymar2,"323/,3232"},{cesfab2,"323/,3232323/,3232"},{ronaldo2,"323/,3232"}}')""".update.run.transact(xa)
+        } yield InsertedValue(n)::Nil
+
+      }.attempt.unsafeToFuture()
+      case Left(fail) => Future.successful(Left(fail))
+    }
   }
+}
